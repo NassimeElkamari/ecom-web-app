@@ -1,13 +1,13 @@
-import Link from 'next/link'
-import React from 'react'
-import Menu from './Menu'
-import { SearchBox } from './SearchBox'
+import Link from "next/link";
+import React from "react";
+import Menu from "./Menu";
+import { SearchBox } from "./SearchBox";
 
 const Header = () => {
   return (
     <header>
       <nav>
-        <div className="navbar justify-between bg-zinc-800">
+        <div className="navbar justify-between bg-base-200 ">
           <div>
             <label htmlFor="my-drawer" className="btn btn-square btn-ghost">
               <svg
@@ -20,12 +20,12 @@ const Header = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
+                  d="M4 6h18M4 12h13M4 18h9"
                 ></path>
               </svg>
             </label>
-            <Link href="/" className="btn btn-ghost text-lg">
-              Magnitude
+            <Link href="/" className="btn btn-ghost text-lg font-bold">
+              MɅGИITUDE
             </Link>
           </div>
 
@@ -36,7 +36,7 @@ const Header = () => {
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

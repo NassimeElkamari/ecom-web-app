@@ -1,36 +1,39 @@
-'use client'
+"use client";
 
-import { User } from '@/lib/models/UserModel'
-import { formatId } from '@/lib/utils'
-import Link from 'next/link'
-import toast from 'react-hot-toast'
-import useSWR from 'swr'
-import useSWRMutation from 'swr/mutation'
+import { User } from "@/lib/models/UserModel";
+import { formatId } from "@/lib/utils";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import Loading from "@/components/dashboardfeatures/loading/loading";
 
 export default function Users() {
-  const { data: users, error } = useSWR(`/api/admin/users`)
+  const { data: users, error } = useSWR(`/api/admin/users`);
   const { trigger: deleteUser } = useSWRMutation(
     `/api/admin/users`,
     async (url, { arg }: { arg: { userId: string } }) => {
-      const toastId = toast.loading('Deleting user...')
+      const toastId = toast.loading("Deleting user...");
       const res = await fetch(`${url}/${arg.userId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      })
-      const data = await res.json()
+      });
+      const data = await res.json();
       res.ok
-        ? toast.success('User deleted successfully', {
+        ? toast.success("User deleted successfully", {
             id: toastId,
           })
         : toast.error(data.message, {
             id: toastId,
-          })
+          });
     }
-  )
-  if (error) return 'An error has occurred.'
-  if (!users) return 'Loading...'
+  );
+  if (error) return "An error has occurred.";
+  if (!users) return <Loading />;
 
   return (
     <div>
@@ -53,23 +56,24 @@ export default function Users() {
                 <td>{formatId(user._id)}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                <td>{user.isAdmin ? "YES" : "NO"}</td>
 
                 <td>
                   <Link
                     href={`/admin/users/${user._id}`}
                     type="button"
-                    className="btn btn-ghost btn-sm"
+                    className="btn btn-ghost bg-gray-500 rounded-xl btn-sm"
                   >
-                    Edit
+                    <FaEdit />
                   </Link>
                   &nbsp;
                   <button
                     onClick={() => deleteUser({ userId: user._id })}
                     type="button"
-                    className="btn btn-ghost btn-sm"
+                    className="btn btn-ghost bg-red-600 rounded-xl btn-sm"
+                    aria-label={`Delete user ${user.name}`}
                   >
-                    Delete
+                    <MdDelete />
                   </button>
                 </td>
               </tr>
@@ -78,5 +82,5 @@ export default function Users() {
         </table>
       </div>
     </div>
-  )
+  );
 }
