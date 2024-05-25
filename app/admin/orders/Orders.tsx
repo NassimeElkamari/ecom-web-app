@@ -1,4 +1,5 @@
 'use client'
+import Loading from '@/components/dashboardfeatures/loading/loading'
 import { Order } from '@/lib/models/OrderModel'
 import Link from 'next/link'
 import useSWR from 'swr'
@@ -6,7 +7,7 @@ import useSWR from 'swr'
 export default function Orders() {
   const { data: orders, error } = useSWR(`/api/admin/orders`)
   if (error) return 'An error has occurred.'
-  if (!orders) return 'Loading...'
+  if (!orders) return <Loading/>
 
   return (
     <div>
@@ -34,12 +35,12 @@ export default function Orders() {
                 <td>
                   {order.isPaid && order.paidAt
                     ? `${order.paidAt.substring(0, 10)}`
-                    : 'not paid'}
+                    : 'Not paid'}
                 </td>
                 <td>
                   {order.isDelivered && order.deliveredAt
                     ? `${order.deliveredAt.substring(0, 10)}`
-                    : 'not delivered'}
+                    : 'Not delivered'}
                 </td>
                 <td>
                   <Link href={`/store/order/${order._id}`} passHref>

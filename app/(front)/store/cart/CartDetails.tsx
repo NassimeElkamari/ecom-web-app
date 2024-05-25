@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { BsCartXFill } from "react-icons/bs";
 
 export default function CartDetails() {
   const router = useRouter()
@@ -19,16 +20,16 @@ export default function CartDetails() {
 
   return (
     <>
-      <h1 className="py-4 text-2xl">Shopping Cart</h1>
+      <h1 className="py-4 text-2xl font-semibold ">Shopping Cart</h1>
 
       {items.length === 0 ? (
-        <div>
-          Cart is empty. <Link href="/">Go shopping</Link>
+        <div className='flex justify-center items-center h-screen text-2xl font-semibold'>
+           <BsCartXFill className='text-red-500 mb-1 text-3xl'/> The Cart is empty,<Link href="/" className='hover:underline hover:text-white'> Go Shopping !</Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
-          <div className="overflow-x-auto md:col-span-3">
-            <table className="table">
+          <div className="overflow-x-auto md:col-span-3 uppercase">
+            <table className="table text-white font-semibold">
               <thead>
                 <tr>
                   <th>Item</th>
@@ -37,11 +38,11 @@ export default function CartDetails() {
                 </tr>
               </thead>
               <tbody>
-                {items.map((item) => (
+                {items.map((item: any) => (
                   <tr key={item.slug}>
                     <td>
                       <Link
-                        href={`/store/product/${item.slug}`}
+                        href={`/product/${item.slug}`}
                         className="flex items-center"
                       >
                         <Image
@@ -77,18 +78,18 @@ export default function CartDetails() {
             </table>
           </div>
           <div>
-            <div className="card bg-base-300">
+            <div className="card">
               <div className="card-body">
                 <ul>
                   <li>
-                    <div className="pb-3 text-xl">
-                      Subtotal ({items.reduce((a, c) => a + c.qty, 0)}) : $
+                    <div className="pb-3 text-xl font-semibold">
+                      Total ({items.reduce((a : any, c: any) => a + c.qty, 0)}) : $
                       {itemsPrice}
                     </div>
                   </li>
                   <li>
                     <button
-                      onClick={() => router.push('/store/shipping')}
+                      onClick={() => router.push('/shipping')}
                       className="btn btn-primary w-full"
                     >
                       Proceed to Checkout

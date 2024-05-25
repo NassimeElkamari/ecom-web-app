@@ -1,4 +1,5 @@
 'use client'
+import Loading from '@/components/dashboardfeatures/loading/loading'
 import { Product } from '@/lib/models/ProductModel'
 import { formatId } from '@/lib/utils'
 import Link from 'next/link'
@@ -6,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 export default function Products() {
   const { data: products, error } = useSWR(`/api/admin/products`)
@@ -24,7 +27,7 @@ export default function Products() {
       })
       const data = await res.json()
       res.ok
-        ? toast.success('Product deleted successfully', {
+        ? toast.success('Product Deleted successfully', {
             id: toastId,
           })
         : toast.error(data.message, {
@@ -45,13 +48,13 @@ export default function Products() {
       const data = await res.json()
       if (!res.ok) return toast.error(data.message)
 
-      toast.success('Product created successfully')
+      toast.success('Product Created Successfully')
       router.push(`/admin/products/${data.product._id}`)
     }
   )
 
   if (error) return 'An error has occurred.'
-  if (!products) return 'Loading...'
+  if (!products) return <Loading/>
 
   return (
     <div>
@@ -93,17 +96,18 @@ export default function Products() {
                   <Link
                     href={`/admin/products/${product._id}`}
                     type="button"
-                    className="btn btn-ghost btn-sm"
+                    className="btn btn-ghost bg-gray-500 rounded-xl btn-sm"
                   >
-                    Edit
+                    <FaEdit />
                   </Link>
                   &nbsp;
                   <button
                     onClick={() => deleteProduct({ productId: product._id! })}
                     type="button"
-                    className="btn btn-ghost btn-sm"
+                    className="btn btn-ghost bg-red-600 rounded-xl btn-sm"
+                    aria-label={`Delete product ${product.name}`}
                   >
-                    Delete
+                    <MdDelete />
                   </button>
                 </td>
               </tr>

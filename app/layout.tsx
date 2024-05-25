@@ -1,23 +1,23 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Providers from '@/components/Providers'
-import DrawerButton from '@/components/DrawerButton'
-import Sidebar from '@/components/Sidebar'
-import Header from '@/components/header/Header'
-import SignatureFooter from '@/components/footer/SignatureFooter'
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Providers from "@/components/Providers";
+import DrawerButton from "@/components/DrawerButton";
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/header/Header";
+import SignatureFooter from "@/components/footer/SignatureFooter";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Next Amazona V2',
-  description: 'Modern ECommerce Website',
-}
+  title: "Next Amazona V2",
+  description: "Modern ECommerce Website",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -31,7 +31,6 @@ export default function RootLayout({
                 {children}
 
                 <SignatureFooter />
-
               </div>
             </div>
             <div className="drawer-side">
@@ -46,5 +45,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  )
+  );
 }

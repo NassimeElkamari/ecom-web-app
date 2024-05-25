@@ -1,14 +1,18 @@
-import { auth } from '@/lib/auth'
-import Link from 'next/link'
+import { auth } from "@/lib/auth";
+import Link from "next/link";
+import { MdSpaceDashboard } from "react-icons/md";
+import { CgShoppingBag } from "react-icons/cg";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { HiUsers } from "react-icons/hi2";
 
 const AdminLayout = async ({
-  activeItem = 'dashboard',
+  activeItem = "dashboard",
   children,
 }: {
-  activeItem: string
-  children: React.ReactNode
+  activeItem: string;
+  children: React.ReactNode;
 }) => {
-  const session = await auth()
+  const session = await auth();
   if (!session || !session.user.isAdmin) {
     return (
       <div className="relative flex flex-grow p-4">
@@ -17,44 +21,44 @@ const AdminLayout = async ({
           <p>Admin permission required</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="relative flex flex-grow">
       <div className="w-full grid md:grid-cols-5">
-        <div className="bg-base-200">
-          <ul className="menu">
+        <div className="bg-base-200 rounded-tr-3xl">
+          <ul className="menu p-7 text-xl cursor-pointer">
             <li>
               <Link
-                className={'dashboard' === activeItem ? 'active' : ''}
+                className={"dashboard" === activeItem ? "active" : ""}
                 href="/admin/dashboard"
               >
-                Dashboard
+                <MdSpaceDashboard /> Dashboard
               </Link>
             </li>
             <li>
               <Link
-                className={'orders' === activeItem ? 'active' : ''}
+                className={"orders" === activeItem ? "active" : ""}
                 href="/admin/orders"
               >
-                Orders
+                <CgShoppingBag /> Orders
               </Link>
             </li>
             <li>
               <Link
-                className={'products' === activeItem ? 'active' : ''}
+                className={"products" === activeItem ? "active" : ""}
                 href="/admin/products"
               >
-                Products
+                <MdProductionQuantityLimits /> Products
               </Link>
             </li>
             <li>
               <Link
-                className={'users' === activeItem ? 'active' : ''}
+                className={"users" === activeItem ? "active" : ""}
                 href="/admin/users"
               >
-                Users
+                <HiUsers /> Users
               </Link>
             </li>
           </ul>
@@ -62,7 +66,7 @@ const AdminLayout = async ({
         <div className="md:col-span-4 px-4">{children} </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;
