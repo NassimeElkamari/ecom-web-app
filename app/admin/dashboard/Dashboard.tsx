@@ -18,7 +18,6 @@ import {
 } from 'chart.js'
 import Loading from '@/components/dashboardfeatures/loading/loading'
 
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -36,7 +35,7 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: 'top' as const, // Use 'as const' to specify the exact string type
     },
   },
 }
@@ -117,59 +116,59 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <div className="my-4 stats inline-grid md:flex  shadow stats-vertical   md:stats-horizontal">
-        <div className="stat">
-          <div className="stat-title">Sales</div>
+    <div className="p-4 min-h-screen">
+      <div className="my-4 grid gap-4 md:grid-cols-4 shadow-lg bg-base-200 rounded-lg p-4">
+        <div className="stat p-4">
+          <div className="stat-title text-gray-600">Sales</div>
           <div className="stat-value text-primary">
             ${formatNumber(summary.ordersPrice)}
           </div>
-          <div className="stat-desc">
+          <div className="stat-desc text-gray-500">
             <Link href="/admin/orders">View sales</Link>
           </div>
         </div>
-        <div className="stat">
-          <div className="stat-title"> Orders</div>
+        <div className="stat p-4">
+          <div className="stat-title text-gray-600">Orders</div>
           <div className="stat-value text-primary">{summary.ordersCount}</div>
-          <div className="stat-desc">
+          <div className="stat-desc text-gray-500">
             <Link href="/admin/orders">View orders</Link>
           </div>
         </div>
-        <div className="stat">
-          <div className="stat-title">Products</div>
+        <div className="stat p-4">
+          <div className="stat-title text-gray-600">Products</div>
           <div className="stat-value text-primary">{summary.productsCount}</div>
-          <div className="stat-desc">
+          <div className="stat-desc text-gray-500">
             <Link href="/admin/products">View products</Link>
           </div>
         </div>
-        <div className="stat">
-          <div className="stat-title">Users</div>
+        <div className="stat p-4">
+          <div className="stat-title text-gray-600">Users</div>
           <div className="stat-value text-primary">{summary.usersCount}</div>
-          <div className="stat-desc">
+          <div className="stat-desc text-gray-500">
             <Link href="/admin/users">View users</Link>
           </div>
         </div>
       </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
+      <div className="grid md:grid-cols-2 gap-4 mt-4">
+        <div className="bg-base-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl py-2">Sales Report</h2>
-          <Line data={salesData} />
+          <Line data={salesData} options={options} />
         </div>
-        <div>
+        <div className="bg-base-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl py-2">Orders Report</h2>
-          <Line data={ordersData} />
+          <Line data={ordersData} options={options} />
         </div>
       </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
+      <div className="grid md:grid-cols-2 gap-4 mt-4">
+        <div className="bg-base-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl py-2">Products Report</h2>
-          <div className="flex items-center justify-center h-80 w-96 ">
-            <Doughnut data={productsData} />
+          <div className="flex items-center justify-center h-80 w-full">
+            <Doughnut data={productsData} options={options} />
           </div>
         </div>
-        <div>
+        <div className="bg-base-200 shadow-lg rounded-lg p-4">
           <h2 className="text-xl py-2">Users Report</h2>
-          <Bar data={usersData} />
+          <Bar data={usersData} options={options} />
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ const AdminLayout = async ({
   return (
     <div className="relative flex flex-grow">
       <div className="w-full grid md:grid-cols-5">
-        <div className="bg-base-200 rounded-tr-3xl">
+        <div className="bg-base-200">
           <ul className="menu p-7 text-xl cursor-pointer">
             <li>
               <Link
