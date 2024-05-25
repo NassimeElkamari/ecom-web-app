@@ -16,6 +16,8 @@ import {
   BarElement,
   ArcElement,
 } from 'chart.js'
+import Loading from '@/components/dashboardfeatures/loading/loading'
+
 
 ChartJS.register(
   CategoryScale,
@@ -43,7 +45,7 @@ const Dashboard = () => {
   const { data: summary, error } = useSWR(`/api/admin/orders/summary`)
 
   if (error) return error.message
-  if (!summary) return 'Loading...'
+  if (!summary) return <Loading/>
 
   const salesData = {
     labels: summary.salesData.map((x: { _id: string }) => x._id),
