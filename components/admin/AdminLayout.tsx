@@ -28,7 +28,7 @@ const AdminLayout = async ({
     <div className="relative flex flex-grow">
       <div className="w-full grid md:grid-cols-5">
         <div className="bg-base-200">
-          <ul className="menu p-7 text-xl cursor-pointer">
+          <ul className="menu p-7 text-l gap-2 cursor-pointer">
             <li>
               <Link
                 className={"dashboard" === activeItem ? "active" : ""}

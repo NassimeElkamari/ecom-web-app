@@ -35,7 +35,7 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top' as const, // Use 'as const' to specify the exact string type
+      position: 'top' as const,
     },
   },
 }
