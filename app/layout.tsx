@@ -29,7 +29,6 @@ export default function RootLayout({
               <div className="min-h-screen flex flex-col bg-[#070707]">
                 <Header />
                 {children}
-
                 <SignatureFooter />
               </div>
             </div>

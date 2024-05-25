@@ -24,8 +24,8 @@ const icons = [
 const SignatureFooter = () => {
   return (
     <>
-      <div className="w-full h-[full] ">
-      <div className="flex justify-center  items-center w-full mr-[8px]">
+      <div className="w-full  mt-auto">
+      <div className="flex justify-center bottom-0 items-center w-full mr-[8px]">
         <div className="flex w-[80%] bg-zinc-800 h-14 items-start justify-start rounded-tr-3xl">
           <h1 className="py-3 pl-3 font-bold mt-1 text-md text-white">MɅGИITUDE</h1>
         </div>
