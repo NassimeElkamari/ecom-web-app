@@ -10,8 +10,8 @@ import SignatureFooter from "@/components/footer/SignatureFooter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Amazona V2",
-  description: "Modern ECommerce Website",
+  title: "MɅGИITUDE",
+  description: "Best Clothing Brand",
 };
 
 export default function RootLayout({
