@@ -6,69 +6,93 @@ import ProductModel from '@/lib/models/ProductModel'
 
 export const GET = auth(async (req: any) => {
   if (!req.auth || !req.auth.user?.isAdmin) {
-    return Response.json(
-      { message: 'unauthorized' },
-      {
-        status: 401,
-      }
+    return new Response(
+      JSON.stringify({ message: 'unauthorized' }),
+      { status: 401 }
     )
   }
 
   await dbConnect()
 
-  const ordersCount = await OrderModel.countDocuments()
-  const productsCount = await ProductModel.countDocuments()
-  const usersCount = await UserModel.countDocuments()
+  try {
+    const ordersCount = await OrderModel.countDocuments()
+    const productsCount = await ProductModel.countDocuments()
+    const usersCount = await UserModel.countDocuments()
 
-  const ordersPriceGroup = await OrderModel.aggregate([
-    {
-      $group: {
-        _id: null,
-        sales: { $sum: '$totalPrice' },
+    const ordersPriceGroup = await OrderModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          sales: { $sum: '$totalPrice' },
+        },
       },
-    },
-  ])
-  const ordersPrice =
-    ordersPriceGroup.length > 0 ? ordersPriceGroup[0].sales : 0
+    ])
+    const ordersPrice =
+      ordersPriceGroup.length > 0 ? ordersPriceGroup[0].sales : 0
 
-  const salesData = await OrderModel.aggregate([
-    {
-      $group: {
-        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
-        totalOrders: { $sum: 1 },
-        totalSales: { $sum: '$totalPrice' },
+
+    const salesData = await OrderModel.aggregate([
+      {
+        $match: { createdAt: { $type: "date" } }
       },
-    },
-    { $sort: { _id: 1 } },
-  ])
-
-  const productsData = await ProductModel.aggregate([
-    {
-      $group: {
-        _id: '$category',
-        totalProducts: { $sum: 1 },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          totalOrders: { $sum: 1 },
+          totalSales: { $sum: '$totalPrice' },
+        },
       },
-    },
-    { $sort: { _id: 1 } },
-  ])
+      { $sort: { _id: 1 } },
+    ])
 
-  const usersData = await UserModel.aggregate([
-    {
-      $group: {
-        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
-        totalUsers: { $sum: 1 },
+
+    const usersData = await UserModel.aggregate([
+      {
+        $match: { createdAt: { $type: "date" } } 
       },
-    },
-    { $sort: { _id: 1 } },
-  ])
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          totalUsers: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ])
 
-  return Response.json({
-    ordersCount,
-    productsCount,
-    usersCount,
-    ordersPrice,
-    salesData,
-    productsData,
-    usersData,
-  })
+    const productsData = await ProductModel.aggregate([
+      {
+        $group: {
+          _id: '$category',
+          totalProducts: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ])
+
+    return new Response(
+      JSON.stringify({
+        ordersCount,
+        productsCount,
+        usersCount,
+        ordersPrice,
+        salesData,
+        productsData,
+        usersData,
+      }),
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error("Error fetching data:", error)
+    if (error instanceof Error) {
+      return new Response(
+        JSON.stringify({ message: 'Internal Server Error', error: error.message }),
+        { status: 500 }
+      )
+    } else {
+      return new Response(
+        JSON.stringify({ message: 'Internal Server Error', error: 'An unknown error occurred' }),
+        { status: 500 }
+      )
+    }
+  }
 }) as any
