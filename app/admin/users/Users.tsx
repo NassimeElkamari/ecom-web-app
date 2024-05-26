@@ -9,6 +9,8 @@ import useSWRMutation from "swr/mutation";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Loading from "@/components/dashboardfeatures/loading/loading";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
 
 export default function Users() {
   const { data: users, error } = useSWR(`/api/admin/users`);
@@ -40,8 +42,8 @@ export default function Users() {
       <h1 className="py-4 text-2xl">Users</h1>
 
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
+        <table className="table table-pin-cols">
+          <thead className="uppercase">
             <tr>
               <th>id</th>
               <th>name</th>
@@ -56,7 +58,16 @@ export default function Users() {
                 <td>{formatId(user._id)}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isAdmin ? "YES" : "NO"}</td>
+                <td
+                  className={user.isAdmin ? "text-green-500 font-bold" : "text-red-500 font-bold"}
+                >
+                  {user.isAdmin ? (
+                    <MdAdminPanelSettings className="inline mr-2 mb-1" />
+                  ) : (
+                    <FaRegUser className="inline mr-2 mb-1" />
+                  )}
+                  {user.isAdmin ? "YES" : "NO"}
+                </td>
 
                 <td>
                   <Link
