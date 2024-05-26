@@ -7,14 +7,14 @@ const Header = () => {
   return (
     <header>
       <nav>
-        <div className="navbar justify-between bg-base-200 ">
+        <div className="navbar justify-between">
           <div>
             <label htmlFor="my-drawer" className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="inline-block w-5 h-5 stroke-current"
+                className="inline-block w-7 h-7 stroke-current text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -24,14 +24,14 @@ const Header = () => {
                 ></path>
               </svg>
             </label>
-            <Link href="/" className="btn btn-ghost text-lg font-bold">
+            {/* <Link href="/" className="btn btn-ghost text-lg font-bold">
               MɅGИITUDE
-            </Link>
+            </Link> */}
           </div>
 
           <Menu />
         </div>
-        <div className="bg-base-300 block md:hidden text-center pb-3">
+        <div className="block md:hidden text-center pb-3">
           <SearchBox />
         </div>
       </nav>

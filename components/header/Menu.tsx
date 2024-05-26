@@ -5,11 +5,17 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
-
+import {
+  BiLogoInstagramAlt,
+  BiLogoTwitter,
+  BiLogoYoutube,
+} from "react-icons/bi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SearchBox } from "./SearchBox";
 import { MdShoppingBag } from "react-icons/md";
+import { IoHeart } from "react-icons/io5";
+
 
 const Menu = () => {
   const { items, init } = useCartService();
@@ -19,7 +25,7 @@ const Menu = () => {
   }, []);
 
   const signoutHandler = () => {
-    signOut({ callbackUrl: "/store/signin" });
+    signOut({ callbackUrl: "/" });
     init();
   };
 
@@ -31,13 +37,34 @@ const Menu = () => {
     (document.activeElement as HTMLElement).blur();
   };
 
+
   return (
     <>
-      <div className="hidden md:block">
-        <SearchBox />
+      {/* <div className="block font-bold text-md text-white">
+      MɅGИITUDE
+      </div> */}
+      <div className="flex flex-[4] justify-center items-center">
+      <div className="mr-[20px] w-[30px] h-[30px] bg-white rounded-full relative cursor-pointer">
+          <BiLogoTwitter
+            color="black"
+            className="w-[23px] h-[23px] absolute left-1 top-1"
+          />
+        </div>
+        <div className="mr-[20px] w-[30px] h-[30px] bg-white rounded-full relative cursor-pointer">
+          <BiLogoInstagramAlt
+            color="black"
+            className="w-[23px] h-[23px] absolute left-1 top-1"
+          />
+        </div>
+        <div className="mr-[20px] w-[30px] h-[30px] bg-white rounded-full relative cursor-pointer">
+          <BiLogoYoutube
+            color="black"
+            className="w-[23px] h-[23px] absolute left-1 top-1"
+          />
+        </div>
       </div>
       <div>
-        <ul className="flex items-stretch">
+        <ul className="flex items-stretch border border-white rounded-full h-9">
           <i>
             {mounted && (
               <label className="swap swap-rotate">
@@ -70,7 +97,7 @@ const Menu = () => {
           </i>
           <li>
             <Link
-              className="ml-3 mr-4 mt-3 flex items-center cursor-pointer relative"
+              className="ml-1 mr-4 mt-1 flex items-center cursor-pointer relative"
               href="/store/cart"
             >
               <MdShoppingBag
@@ -84,13 +111,26 @@ const Menu = () => {
               )}
             </Link>
           </li>
+            <li>
+            <Link
+              className="mr-4 mt-1 flex items-center cursor-pointer relative"
+              href="/store/cart"
+            >
+             <IoHeart
+            className="w-6 h-6 bg-white rounded-full p-1"
+            color="black"
+          />
+          
+            </Link>
+            </li>
+        
           {session && session.user ? (
             <>
               <li>
                 <div className="dropdown dropdown-bottom dropdown-end">
                   <label
                     tabIndex={0}
-                    className="btn btn-ghost rounded-btn inline-flex items-center"
+                    className="mt-1 mr-1 bg-white text-black rounded-full cursor-pointer text-center inline-flex items-center"
                   >
                     <FaUserCircle />
                     {session.user.name}
@@ -98,7 +138,7 @@ const Menu = () => {
                   </label>
                   <ul
                     tabIndex={0}
-                    className="menu dropdown-content z-[1] p-2 shadow bg-base-300 rounded-box w-52 "
+                    className="menu dropdown-content z-[1] p-2 shadow bg-[#070707] bg-opacity-85 text-white rounded-box w-52 "
                   >
                     {session.user.isAdmin && (
                       <li onClick={handleClick}>
@@ -125,11 +165,11 @@ const Menu = () => {
           ) : (
             <li>
               <button
-                className="btn btn-ghost rounded-btn"
+                className="bg-white h-7 mt-1 mr-1 text-bold text-black rounded-full flex items-center cursor-pointer text-center text-sm font-bold p-2"
                 type="button"
                 onClick={() => signIn()}
               >
-                Sign in
+                Member Login
               </button>
             </li>
           )}
