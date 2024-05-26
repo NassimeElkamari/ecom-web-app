@@ -25,13 +25,13 @@ const AdminLayout = async ({
   }
 
   return (
-    <div className="relative flex flex-grow">
-      <div className="w-full grid md:grid-cols-5">
-        <div className="bg-base-200">
-          <ul className="menu p-7 text-l gap-2 cursor-pointer">
+    <div className="relative flex flex-grow text-white">
+      <div className="w-full grid md:grid-cols-5 p-2">
+        <div className="bg-[#171717]">
+          <ul className="menu text-l gap-2 cursor-pointer">
             <li>
               <Link
-                className={"dashboard" === activeItem ? "active" : ""}
+                className={"dashboard" === activeItem ? "bg-[#070707] text-white" : ""}
                 href="/admin/dashboard"
               >
                 <MdSpaceDashboard /> Dashboard
@@ -39,7 +39,7 @@ const AdminLayout = async ({
             </li>
             <li>
               <Link
-                className={"orders" === activeItem ? "active" : ""}
+                className={"orders" === activeItem ? "bg-[#070707] text-white" : ""}
                 href="/admin/orders"
               >
                 <CgShoppingBag /> Orders
@@ -47,7 +47,7 @@ const AdminLayout = async ({
             </li>
             <li>
               <Link
-                className={"products" === activeItem ? "active" : ""}
+                className={"products" === activeItem ? "bg-[#070707] text-white" : ""}
                 href="/admin/products"
               >
                 <MdProductionQuantityLimits /> Products
@@ -55,7 +55,7 @@ const AdminLayout = async ({
             </li>
             <li>
               <Link
-                className={"users" === activeItem ? "active" : ""}
+                className={"users" === activeItem ? "bg-[#070707] text-white" : ""}
                 href="/admin/users"
               >
                 <HiUsers /> Users

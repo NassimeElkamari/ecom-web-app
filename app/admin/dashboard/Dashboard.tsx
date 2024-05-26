@@ -119,8 +119,8 @@ const Dashboard = () => {
   return (
     <div className="p-4 min-h-screen">
       <div className="my-2 grid gap-6 md:grid-cols-4 shadow-lg rounded-lg ">
-        <div className="stat p-4 bg-base-200 shadow-lg rounded-lg">
-          <div className="stat-title  text-gray-600 font-bold">Sales</div>
+        <div className="stat p-4 bg-[#171717] border border-white rounded-3xl">
+          <div className="stat-title  text-white font-bold">Sales</div>
           <div className="stat-value text-green-600">
             ${formatNumber(summary.ordersPrice)}
           </div>
@@ -128,8 +128,8 @@ const Dashboard = () => {
             <Link href="/admin/orders">View sales</Link>
           </div> */}
         </div>
-        <div className="stat p-4 bg-base-200 shadow-lg rounded-lg ">
-          <div className="stat-title text-gray-600 font-bold">Orders</div>
+        <div className="stat p-4 bg-[#171717] border border-white rounded-3xl">
+          <div className="stat-title text-white font-bold">Orders</div>
           <div className="stat-value text-blue-500">{summary.ordersCount}</div>
           <div className="stat-desc text-gray-500 hover:underline">
             <Link href="/admin/orders" passHref>
@@ -140,8 +140,8 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-        <div className="stat p-4 bg-base-200 shadow-lg rounded-lg ">
-          <div className="stat-title text-gray-600 font-bold">Products</div>
+        <div className="stat p-4 bg-[#171717] border border-white rounded-3xl">
+          <div className="stat-title text-white font-bold">Products</div>
           <div className="stat-value text-orange-500">
             {summary.productsCount}
           </div>
@@ -154,8 +154,8 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-        <div className="stat p-4 bg-base-200 shadow-lg rounded-lg ">
-          <div className="stat-title text-gray-600 font-bold">Users</div>
+        <div className="stat p-4 bg-[#171717] border border-white rounded-3xl">
+          <div className="stat-title text-white font-bold">Users</div>
           <div className="stat-value text-red-500">{summary.usersCount}</div>
           <div className="stat-desc text-gray-500 hover:underline">
             <Link href="/admin/users">
@@ -168,23 +168,23 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-6 my-6">
-        <div className="bg-base-200 shadow-lg rounded-lg p-4">
+        <div className="border border-white rounded-3xl p-4">
           <h2 className="text-lg py-1">Sales Report</h2>
           <Line data={salesData} options={options} />
         </div>
-        <div className="bg-base-200 shadow-lg rounded-lg p-4">
+        <div className="p-4 border border-white rounded-3xl">
           <h2 className="text-lg py-1">Orders Report</h2>
           <Line data={ordersData} options={options} />
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-6 my-6">
-        <div className="bg-base-200 shadow-lg rounded-lg p-4">
+        <div className="p-4">
           <h2 className="text-lg py-1">Products Report</h2>
           <div className="flex items-center justify-center h-64 w-full">
             <Pie data={productsData} options={options} />
           </div>
         </div>
-        <div className="bg-base-200 shadow-lg rounded-lg p-4">
+        <div className="border border-white rounded-3xl p-4">
           <h2 className="text-lg py-1">Users Report</h2>
           <Bar data={usersData} options={options} />
         </div>
