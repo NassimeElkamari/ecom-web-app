@@ -124,9 +124,9 @@ const Dashboard = () => {
           <div className="stat-value text-green-600">
             ${formatNumber(summary.ordersPrice)}
           </div>
-          <div className="stat-desc text-gray-500 hover:underline">
+          {/* <div className="stat-desc text-gray-500 hover:underline">
             <Link href="/admin/orders">View sales</Link>
-          </div>
+          </div> */}
         </div>
         <div className="stat p-4 bg-base-200 shadow-lg rounded-lg ">
           <div className="stat-title text-gray-600 font-bold">Orders</div>

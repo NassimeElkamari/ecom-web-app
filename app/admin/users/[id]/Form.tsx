@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { User } from '@/lib/models/UserModel'
 import { formatId } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import Loading from '@/components/dashboardfeatures/loading/loading'
 
 export default function UserEditForm({ userId }: { userId: string }) {
   const { data: user, error } = useSWR(`/api/admin/users/${userId}`)
@@ -49,7 +50,7 @@ export default function UserEditForm({ userId }: { userId: string }) {
   }
 
   if (error) return error.message
-  if (!user) return 'Loading...'
+  if (!user) return <Loading/>
 
   const FormInput = ({
     id,
