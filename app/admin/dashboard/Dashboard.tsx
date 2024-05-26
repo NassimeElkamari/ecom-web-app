@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { Bar, Doughnut, Line } from 'react-chartjs-2'
+import { Bar, Doughnut, Line, Pie } from 'react-chartjs-2'
 import useSWR from 'swr'
 import { formatNumber } from '@/lib/utils'
 import {
@@ -163,7 +163,7 @@ const Dashboard = () => {
         <div className="bg-base-200 shadow-lg rounded-lg p-4">
           <h2 className="text-lg py-1">Products Report</h2>
           <div className="flex items-center justify-center h-64 w-full">
-            <Doughnut data={productsData} options={options} />
+            <Pie data={productsData} options={options} />
           </div>
         </div>
         <div className="bg-base-200 shadow-lg rounded-lg p-4">
