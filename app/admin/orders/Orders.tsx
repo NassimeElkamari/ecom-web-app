@@ -32,12 +32,12 @@ export default function Orders() {
                 <td>{order.user?.name || 'Deleted user'}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>${order.totalPrice}</td>
-                <td>
+                <td className={order.isPaid ? "text-green-500" : "text-red-500"}>
                   {order.isPaid && order.paidAt
                     ? `${order.paidAt.substring(0, 10)}`
                     : 'Not paid'}
                 </td>
-                <td>
+                <td className={order.isDelivered ? "text-green-500" : "text-red-500"}>
                   {order.isDelivered && order.deliveredAt
                     ? `${order.deliveredAt.substring(0, 10)}`
                     : 'Not delivered'}
