@@ -13,7 +13,7 @@ export default function Orders() {
     <div>
       <h1 className="py-4 text-2xl">Orders</h1>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table  table-pin-cols">
           <thead>
             <tr>
               <th>ID</th>
