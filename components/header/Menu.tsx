@@ -130,9 +130,9 @@ const Menu = () => {
                 <div className="dropdown dropdown-bottom dropdown-end">
                   <label
                     tabIndex={0}
-                    className="mt-1 mr-1 bg-white text-black rounded-full cursor-pointer text-center inline-flex items-center"
+                    className="mt-1 mr-1 bg-white text-black rounded-full cursor-pointer text-center inline-flex items-center p-2 h-7"
                   >
-                    <FaUserCircle />
+                    {/* <FaUserCircle /> */}
                     {session.user.name}
                     <IoIosArrowDropdownCircle />
                   </label>
