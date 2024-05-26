@@ -55,7 +55,7 @@ const Form = () => {
       })
       if (res.ok) {
         return router.push(
-          `store/signin?callbackUrl=${callbackUrl}&success=Account has been created`
+          `/store/signin?callbackUrl=${callbackUrl}&success=Account has been created`
         )
       } else {
         const data = await res.json()
