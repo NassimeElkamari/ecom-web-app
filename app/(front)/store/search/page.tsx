@@ -204,17 +204,19 @@ export default async function SearchPage({
               </Link>
             ) : null}
           </div>
-          <div>
-            Sort by{" "}
-            {sortOrders.map((s) => (
+          <div className="flex items-center space-x-2">
+            <span>Sort by:</span>
+            {sortOrders.map((order) => (
               <Link
-                key={s}
-                className={`mx-2 link link-hover ${
-                  sort === s ? "link-primary" : ""
+                key={order}
+                href={getFilterUrl({ s: order })}
+                className={`link link-hover ${
+                  sort === order
+                    ? "text-gray-300 font-semibold"
+                    : "text-gray-600"
                 }`}
-                href={getFilterUrl({ s })}
               >
-                {s}
+                {order}
               </Link>
             ))}
           </div>
