@@ -1,31 +1,35 @@
-'use client'
-import useCartService from '@/lib/hooks/useCartStore'
-import useLayoutService from '@/lib/hooks/useLayout'
-import { signIn, signOut, useSession } from 'next-auth/react'
+"use client";
+import useCartService from "@/lib/hooks/useCartStore";
+import useLayoutService from "@/lib/hooks/useLayout";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { SearchBox } from './SearchBox'
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { SearchBox } from "./SearchBox";
+import { MdShoppingBag } from "react-icons/md";
 
 const Menu = () => {
-  const { items, init } = useCartService()
-  const [mounted, setMounted] = useState(false)
+  const { items, init } = useCartService();
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const signoutHandler = () => {
-    signOut({ callbackUrl: '/store/signin' })
-    init()
-  }
+    signOut({ callbackUrl: "/store/signin" });
+    init();
+  };
 
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
-  const { theme, toggleTheme } = useLayoutService()
+  const { theme, toggleTheme } = useLayoutService();
 
   const handleClick = () => {
-    ;(document.activeElement as HTMLElement).blur()
-  }
+    (document.activeElement as HTMLElement).blur();
+  };
 
   return (
     <>
@@ -40,7 +44,7 @@ const Menu = () => {
                 {/* this hidden checkbox controls the state */}
                 <input
                   type="checkbox"
-                  checked={theme === 'light'}
+                  checked={theme === "light"}
                   onChange={toggleTheme}
                 />
 
@@ -65,11 +69,17 @@ const Menu = () => {
             )}
           </i>
           <li>
-            <Link className="btn btn-ghost rounded-btn" href="/store/cart">
-              Cart    
-              {mounted && items.length != 0 && (
-                <div className="badge badge-secondary">
-                  {items.reduce((a, c) => a + c.qty, 0)}{' '}
+            <Link
+              className="ml-3 mr-4 mt-3 flex items-center cursor-pointer relative"
+              href="/store/cart"
+            >
+              <MdShoppingBag
+                className="w-6 h-6 bg-white rounded-full p-1"
+                color="black"
+              />
+              {mounted && items.length > 0 && (
+                <div className="badge badge-secondary rounded-full w-5 h-5 flex items-center justify-center text-xs text-white bg-red-500 absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+                  {items.reduce((a, c) => a + c.qty, 0)}
                 </div>
               )}
             </Link>
@@ -78,22 +88,13 @@ const Menu = () => {
             <>
               <li>
                 <div className="dropdown dropdown-bottom dropdown-end">
-                  <label tabIndex={0} className="btn btn-ghost rounded-btn">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost rounded-btn inline-flex items-center"
+                  >
+                    <FaUserCircle />
                     {session.user.name}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
+                    <IoIosArrowDropdownCircle />
                   </label>
                   <ul
                     tabIndex={0}
@@ -114,6 +115,7 @@ const Menu = () => {
                     <li onClick={handleClick}>
                       <button type="button" onClick={signoutHandler}>
                         Sign out
+                        <FaSignOutAlt />
                       </button>
                     </li>
                   </ul>
@@ -134,7 +136,7 @@ const Menu = () => {
         </ul>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;
