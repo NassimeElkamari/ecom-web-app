@@ -1,75 +1,75 @@
-import ProductItem from '@/components/products/ProductItem'
-import { Rating } from '@/components/products/Rating'
-import productServices from '@/lib/services/productService'
-import Link from 'next/link'
+import ProductItem from "@/components/products/ProductItem";
+import { Rating } from "@/components/products/Rating";
+import productServices from "@/lib/services/productService";
+import Link from "next/link";
 
-const sortOrders = ['newest', 'lowest', 'highest', 'rating']
+const sortOrders = ["Newest", "Lowest", "Highest", "Rating"];
 const prices = [
   {
-    name: '$1 to $50',
-    value: '1-50',
+    name: "$1 to $50",
+    value: "1-50",
   },
   {
-    name: '$51 to $200',
-    value: '51-200',
+    name: "$51 to $200",
+    value: "51-200",
   },
   {
-    name: '$201 to $1000',
-    value: '201-1000',
+    name: "$201 to $1000",
+    value: "201-1000",
   },
-]
+];
 
-const ratings = [5, 4, 3, 2, 1]
+const ratings = [5, 4, 3, 2, 1];
 
 export async function generateMetadata({
-  searchParams: { q = 'all', category = 'all', price = 'all', rating = 'all' },
+  searchParams: { q = "all", category = "all", price = "all", rating = "all" },
 }: {
   searchParams: {
-    q: string
-    category: string
-    price: string
-    rating: string
-    sort: string
-    page: string
-  }
+    q: string;
+    category: string;
+    price: string;
+    rating: string;
+    sort: string;
+    page: string;
+  };
 }) {
   if (
-    (q !== 'all' && q !== '') ||
-    category !== 'all' ||
-    rating !== 'all' ||
-    price !== 'all'
+    (q !== "all" && q !== "") ||
+    category !== "all" ||
+    rating !== "all" ||
+    price !== "all"
   ) {
     return {
-      title: `Search ${q !== 'all' ? q : ''}
-          ${category !== 'all' ? ` : Category ${category}` : ''}
-          ${price !== 'all' ? ` : Price ${price}` : ''}
-          ${rating !== 'all' ? ` : Rating ${rating}` : ''}`,
-    }
+      title: `Search ${q !== "all" ? q : ""}
+          ${category !== "all" ? ` : Category ${category}` : ""}
+          ${price !== "all" ? ` : Price ${price}` : ""}
+          ${rating !== "all" ? ` : Rating ${rating}` : ""}`,
+    };
   } else {
     return {
-      title: 'Search Products',
-    }
+      title: "Search Products",
+    };
   }
 }
 
 export default async function SearchPage({
   searchParams: {
-    q = 'all',
-    category = 'all',
-    price = 'all',
-    rating = 'all',
-    sort = 'newest',
-    page = '1',
+    q = "all",
+    category = "all",
+    price = "all",
+    rating = "all",
+    sort = "newest",
+    page = "1",
   },
 }: {
   searchParams: {
-    q: string
-    category: string
-    price: string
-    rating: string
-    sort: string
-    page: string
-  }
+    q: string;
+    category: string;
+    price: string;
+    rating: string;
+    sort: string;
+    page: string;
+  };
 }) {
   const getFilterUrl = ({
     c,
@@ -78,21 +78,21 @@ export default async function SearchPage({
     r,
     pg,
   }: {
-    c?: string
-    s?: string
-    p?: string
-    r?: string
-    pg?: string
+    c?: string;
+    s?: string;
+    p?: string;
+    r?: string;
+    pg?: string;
   }) => {
-    const params = { q, category, price, rating, sort, page }
-    if (c) params.category = c
-    if (p) params.price = p
-    if (r) params.rating = r
-    if (pg) params.page = pg
-    if (s) params.sort = s
-    return `/store/search?${new URLSearchParams(params).toString()}`
-  }
-  const categories = await productServices.getCategories()
+    const params = { q, category, price, rating, sort, page };
+    if (c) params.category = c;
+    if (p) params.price = p;
+    if (r) params.rating = r;
+    if (pg) params.page = pg;
+    if (s) params.sort = s;
+    return `/store/search?${new URLSearchParams(params).toString()}`;
+  };
+  const categories = await productServices.getCategories();
   const { countProducts, products, pages } = await productServices.getByQuery({
     category,
     q,
@@ -100,28 +100,28 @@ export default async function SearchPage({
     rating,
     page,
     sort,
-  })
+  });
   return (
-    <div className="grid md:grid-cols-5 md:gap-5">
+    <div className="grid md:grid-cols-5 gap-5 p-4">
       <div>
-        <div className="text-xl pt-3">Department</div>
+        <div className="text-xl font-semibold pb-3">Categories</div>
         <div>
           <ul>
             <li>
               <Link
-                className={`link link-hover ${
-                  'all' === category && 'link-primary'
+                className={`link link-hover text-white font-light text-xs ${
+                  "all" === category ? "link-primary" : ""
                 }`}
-                href={getFilterUrl({ c: 'all' })}
+                href={getFilterUrl({ c: "all" })}
               >
-                Any
+                All Categories
               </Link>
             </li>
             {categories.map((c: string) => (
               <li key={c}>
                 <Link
-                  className={`link link-hover ${
-                    c === category && 'link-primary'
+                  className={`link link-hover  text-sm${
+                    c === category ? "link-primary" : ""
                   }`}
                   href={getFilterUrl({ c })}
                 >
@@ -132,24 +132,24 @@ export default async function SearchPage({
           </ul>
         </div>
         <div>
-          <div className="text-xl pt-3">Price</div>
+          <div className="text-xl font-semibold pb-3 pt-5">Price</div>
           <ul>
             <li>
               <Link
-                className={`link link-hover ${
-                  'all' === price && 'link-primary'
+                className={`link link-hover text-white font-light text-xs ${
+                  "all" === price ? "link-primary" : ""
                 }`}
-                href={getFilterUrl({ p: 'all' })}
+                href={getFilterUrl({ p: "all" })}
               >
-                Any
+                All Prices
               </Link>
             </li>
             {prices.map((p) => (
               <li key={p.value}>
                 <Link
                   href={getFilterUrl({ p: p.value })}
-                  className={`link link-hover ${
-                    p.value === price && 'link-primary'
+                  className={`link link-hover text-sm ${
+                    p.value === price ? "link-primary" : ""
                   }`}
                 >
                   {p.name}
@@ -159,16 +159,16 @@ export default async function SearchPage({
           </ul>
         </div>
         <div>
-          <div className="text-xl pt-3">Customer Review</div>
+          <div className="text-xl font-semibold pb-3 pt-5">Customer Review</div>
           <ul>
             <li>
               <Link
-                href={getFilterUrl({ r: 'all' })}
-                className={`link link-hover ${
-                  'all' === rating && 'link-primary'
+                href={getFilterUrl({ r: "all" })}
+                className={`link link-hover text-white font-light text-xs ${
+                  "all" === rating ? "link-primary" : ""
                 }`}
               >
-                Any
+                All Reviews
               </Link>
             </li>
             {ratings.map((r) => (
@@ -176,10 +176,10 @@ export default async function SearchPage({
                 <Link
                   href={getFilterUrl({ r: `${r}` })}
                   className={`link link-hover ${
-                    `${r}` === rating && 'link-primary'
+                    `${r}` === rating ? "link-primary" : ""
                   }`}
                 >
-                  <Rating caption={' & up'} value={r}></Rating>
+                  <Rating caption={" & up"} value={r}></Rating>
                 </Link>
               </li>
             ))}
@@ -187,53 +187,54 @@ export default async function SearchPage({
         </div>
       </div>
       <div className="md:col-span-4">
-        <div className="flex items-center justify-between  py-4">
+        <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
-            {products.length === 0 ? 'No' : countProducts} Results
-            {q !== 'all' && q !== '' && ' : ' + q}
-            {category !== 'all' && ' : ' + category}
-            {price !== 'all' && ' : Price ' + price}
-            {rating !== 'all' && ' : Rating ' + rating + ' & up'}
+            {products.length === 0 ? "No" : countProducts} Results
+            {q !== "all" && q !== "" && ` : ${q}`}
+            {category !== "all" && ` : ${category}`}
+            {price !== "all" && ` : Price ${price}`}
+            {rating !== "all" && ` : Rating ${rating} & up`}
             &nbsp;
-            {(q !== 'all' && q !== '') ||
-            category !== 'all' ||
-            rating !== 'all' ||
-            price !== 'all' ? (
-              <Link className="btn btn-sm btn-ghost" href="/store/search">
+            {(q !== "all" && q !== "") ||
+            category !== "all" ||
+            rating !== "all" ||
+            price !== "all" ? (
+              <Link className="btn btn-sm btn-ghost ml-2" href="/store/search">
                 Clear
               </Link>
             ) : null}
           </div>
-          <div>
-            Sort by{' '}
-            {sortOrders.map((s) => (
+          <div className="flex items-center space-x-2">
+            <span>Sort by:</span>
+            {sortOrders.map((order) => (
               <Link
-                key={s}
-                className={`mx-2 link link-hover ${
-                  sort == s ? 'link-primary' : ''
-                } `}
-                href={getFilterUrl({ s })}
+                key={order}
+                href={getFilterUrl({ s: order })}
+                className={`link link-hover ${
+                  sort === order
+                    ? "text-gray-300 font-semibold"
+                    : "text-gray-600"
+                }`}
               >
-                {s}
+                {order}
               </Link>
             ))}
           </div>
         </div>
-
         <div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3  ">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {products.map((product) => (
               <ProductItem key={product.slug} product={product} />
             ))}
           </div>
-          <div className="join">
+          <div className="join flex justify-center mt-4">
             {products.length > 0 &&
               Array.from(Array(pages).keys()).map((p) => (
                 <Link
                   key={p}
                   className={`join-item btn ${
-                    Number(page) === p + 1 ? 'btn-active' : ''
-                  } `}
+                    Number(page) === p + 1 ? "btn-active" : ""
+                  }`}
                   href={getFilterUrl({ pg: `${p + 1}` })}
                 >
                   {p + 1}
@@ -243,5 +244,5 @@ export default async function SearchPage({
         </div>
       </div>
     </div>
-  )
+  );
 }
