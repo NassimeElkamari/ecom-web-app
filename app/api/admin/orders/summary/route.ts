@@ -37,7 +37,7 @@ export const GET = auth(async (req: any) => {
       },
       {
         $group: {
-          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          _id: { $dateToString: { format: '%Y-%m-%d %H', date: '$createdAt' } },
           totalOrders: { $sum: 1 },
           totalSales: { $sum: '$totalPrice' },
         },
@@ -52,7 +52,7 @@ export const GET = auth(async (req: any) => {
       },
       {
         $group: {
-          _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+          _id: { $dateToString: { format: '%Y-%m-%d %H', date: '$createdAt' } },
           totalUsers: { $sum: 1 },
         },
       },
