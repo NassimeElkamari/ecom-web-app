@@ -71,8 +71,8 @@ export default function Products() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="table table-pin-cols">
-          <thead className='uppercase'>
+        <table className="table">
+          <thead className='uppercase bg-[#292929] text-white'>
             <tr>
               <th>id</th>
               <th>name</th>
