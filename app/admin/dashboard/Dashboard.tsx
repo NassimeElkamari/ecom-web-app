@@ -56,8 +56,8 @@ const Dashboard = () => {
         data: summary.salesData.map(
           (x: { totalSales: number }) => x.totalSales
         ),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        borderColor: "rgb(34, 139, 34)",
+
       },
     ],
   };
@@ -71,7 +71,6 @@ const Dashboard = () => {
           (x: { totalOrders: number }) => x.totalOrders
         ),
         borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };
