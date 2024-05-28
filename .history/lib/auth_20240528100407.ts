@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs'
 import dbConnect from './dbConnect'
 import UserModel from './models/UserModel'
 import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google';
 
 export const config = {
   providers: [
@@ -32,15 +31,11 @@ export const config = {
         return null
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
   ],
   pages: {
     signIn: '/login',
-    newUser: '/login',
-    error: '/login',
+    newUser: '/store/register',
+    error: '/store/signin',
   },
   callbacks: {
     async jwt({ user, trigger, session, token }: any) {
@@ -66,22 +61,6 @@ export const config = {
         session.user = token.user
       }
       return session
-    },
-    async signIn({ user, account }: any) {
-      if (account.provider === 'google') {
-        await dbConnect();
-        const existingUser = await UserModel.findOne({ email: user.email });
-
-        if (!existingUser) {
-          const newUser = new UserModel({
-            name: user.name,
-            email: user.email,
-            password: '', // Use an empty string or placeholder for password
-          });
-          await newUser.save();
-        }
-      }
-      return true;
     },
   },
 }
