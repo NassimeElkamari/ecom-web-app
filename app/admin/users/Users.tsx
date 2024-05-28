@@ -42,8 +42,8 @@ export default function Users() {
       <h1 className="py-4 text-2xl">Users</h1>
 
       <div className="overflow-x-auto">
-        <table className="table table-pin-cols">
-          <thead className="uppercase">
+        <table className="table">
+          <thead className="uppercase bg-[#292929] text-white">
             <tr>
               <th>id</th>
               <th>name</th>

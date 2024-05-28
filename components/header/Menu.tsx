@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { SearchBox } from "./SearchBox";
 import { MdShoppingBag } from "react-icons/md";
 import { IoHeart } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 const Menu = () => {
@@ -130,11 +131,11 @@ const Menu = () => {
                 <div className="dropdown dropdown-bottom dropdown-end">
                   <label
                     tabIndex={0}
-                    className="mt-1 mr-1 bg-white text-black rounded-full cursor-pointer text-center inline-flex items-center p-2 h-7"
+                    className="mt-1 mr-1 bg-white text-black rounded-full cursor-pointer text-center inline-flex gap-1 items-center p-2 h-7"
                   >
                     {/* <FaUserCircle /> */}
                     {session.user.name}
-                    <IoIosArrowDropdownCircle />
+                    <IoIosArrowDown />
                   </label>
                   <ul
                     tabIndex={0}
